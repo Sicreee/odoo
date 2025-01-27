@@ -5921,7 +5921,7 @@ registry.SnippetMove = SnippetOptionWidget.extend(ColumnLayoutMixin, {
         }
         if (!this.$target.is(this.data.noScroll)
                 && (params.name === 'move_up_opt' || params.name === 'move_down_opt')) {
-            const mainScrollingEl = $().getScrollingElement()[0];
+            const mainScrollingEl = document.scrollingElement || document.documentElement || document.body;
             const elTop = this.$target[0].getBoundingClientRect().top;
             const heightDiff = mainScrollingEl.offsetHeight - this.$target[0].offsetHeight;
             const bottomHidden = heightDiff < elTop;

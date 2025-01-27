@@ -59,7 +59,7 @@
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='user_id']" position="after">
-                    <field name="activity_ids" optional="show" widget="list_activity"/>
+                    <field name="activity_ids" optional="show" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 </xpath>
             </field>
         </record>

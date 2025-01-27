@@ -93,7 +93,7 @@ var SnippetEditor = publicWidget.Widget.extend({
         this.templateOptions = templateOptions;
         this.isTargetParentEditable = false;
         this.isTargetMovable = false;
-        this.$scrollingElement = $().getScrollingElement(this.$editable[0].ownerDocument);
+        this.$scrollingElement = $(document.scrollingElement || document.documentElement);
         if (!this.$scrollingElement[0]) {
             this.$scrollingElement = $(this.ownerDocument).find('.o_editable');
         }
@@ -346,7 +346,8 @@ var SnippetEditor = publicWidget.Widget.extend({
         // right border as it interferes with proper scrolling. (e.g. modal)
         const handleEReadonlyEl = this.$el[0].querySelector('.o_handle.e.readonly');
         if (handleEReadonlyEl) {
-            handleEReadonlyEl.style.width = $(targetEl).hasScrollableContent() ? 0 : '';
+            handleEReadonlyEl.style.width =
+                $.fn.hasScrollableContent && $(targetEl).hasScrollableContent() ? '0' : '';
         }
     },
     /**
@@ -899,7 +900,7 @@ var SnippetEditor = publicWidget.Widget.extend({
         const $scrollable = modalAncestorEl && $(modalAncestorEl)
             || (this.options.$scrollable)
             || (this.$scrollingElement.length && this.$scrollingElement)
-            || $().getScrollingElement(this.ownerDocument);
+            || $(document.scrollingElement || document.documentElement)
         const dragAndDropOptions = {
             ref: { el: element },
             elements: elementsSelector,
@@ -2161,11 +2162,11 @@ class SnippetsMenu extends Component {
 
         // Hide the active overlay when scrolling.
         // Show it again and recompute all the overlays after the scroll.
-        this.$scrollingElement = $().getScrollingElement(this.$body[0].ownerDocument);
+        this.$scrollingElement = $(document.scrollingElement || document.documentElement);
         if (!this.$scrollingElement[0]) {
             this.$scrollingElement = $(this.ownerDocument).find('.o_editable');
         }
-        this.$scrollingTarget = $().getScrollingTarget(this.$scrollingElement);
+        this.$scrollingTarget = this.$scrollingElement;
         this._onScrollingElementScroll = throttleForAnimation(() => {
             for (const editor of this.snippetEditors) {
                 editor.toggleOverlayVisibility(false);
@@ -3620,7 +3621,7 @@ class SnippetsMenu extends Component {
         let isSnippetGroup;
 
         let dragAndDropResolve;
-        let $scrollingElement = $().getScrollingElement(this.$body[0].ownerDocument);
+        let $scrollingElement = $(document.scrollingElement || document.documentElement)
         if (!$scrollingElement[0]) {
             $scrollingElement = $(this.ownerDocument).find('.o_editable');
         }
@@ -3962,7 +3963,7 @@ class SnippetsMenu extends Component {
         // Don't scroll if $el is added to a visible popup that does not fill
         // the page (otherwise the page would scroll to a random location).
         const modalEl = $el[0].closest('.modal');
-        if (modalEl && !$(modalEl).hasScrollableContent()) {
+        if (modalEl && $.fn.hasScrollableContent && !$(modalEl).hasScrollableContent()) {
             return;
         }
         const scrollable = $scrollable?.get(0);

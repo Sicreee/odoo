@@ -52,11 +52,11 @@
         -->
         <!-- Partner -->
         <record id="view_partner_tree" model="ir.ui.view">
-            <field name="name">res.partner.list</field>
+            <field name="name">res.partner.kanban</field>
             <field name="model">res.partner</field>
             <field eval="8" name="priority"/>
             <field name="arch" type="xml">
-                <list string="Contacts" sample="1" multi_edit="1">
+                <kanban string="Contacts" sample="1" multi_edit="1">
                     <field name="complete_name" string="Name"/>
                     <field name="phone" class="o_force_ltr" optional="show"/>
                     <field name="mobile" optional="hide"/>
@@ -69,7 +69,7 @@
                     <field name="vat" optional="hide" readonly="1"/>
                     <field name="category_id" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <field name="company_id" groups="base.group_multi_company" readonly="1"/>
-                </list>
+                </kanban>
             </field>
         </record>
 

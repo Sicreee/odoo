@@ -145,7 +145,8 @@ $.fn.animate = function (properties, ...rest) {
         // The caller wants to scroll a set of elements including html and/or
         // body to a specific point -> do that but make sure to add the real
         // top level element to that set of elements if any different is found.
-        const $withRealScrollable = this.not('html, body').add($().getScrollingElement(this[0].ownerDocument));
+        const $withRealScrollable = this.not('html, body').add(
+             $().getScrollingElement?.(this[0]?.ownerDocument) || document.scrollingElement
         originalAnimate.call($withRealScrollable, {'scrollTop': props['scrollTop']}, ...rest);
         delete props['scrollTop'];
     }

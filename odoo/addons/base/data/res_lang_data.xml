@@ -14,9 +14,9 @@
         <record id="base.lang_es" model="res.lang">
             <field name="url_code">es_ES</field>
         </record>
-        <record id="base.lang_es_419" model="res.lang">
+      <!--  <record id="base.lang_es_419" model="res.lang">
             <field name="url_code">es</field>
-        </record>
+        </record> -->
     </data>
     <data>
         <record id="base.lang_ar" model="res.lang">
